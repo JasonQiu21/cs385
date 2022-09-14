@@ -44,8 +44,6 @@ PrimesSieve::PrimesSieve(int limit) :
 }
 
 void PrimesSieve::display_primes() const {
-    // TODO: write code to display the primes in the format specified in the
-    // requirements document.
     cout << endl << "Number of primes found: " << num_primes_ << endl;
     cout << "Primes up to " << limit_ << ':' << endl;
     const int max_prime_width = num_digits(max_prime_), 
@@ -53,6 +51,7 @@ void PrimesSieve::display_primes() const {
     int column = 0;
     for(int i=0; i<=limit_; i++){
         if(is_prime_[i]){
+            // Set width only if we have multiple rows
             if(num_primes_ > primes_per_row){
                 cout << setw(max_prime_width);
             }
@@ -63,6 +62,7 @@ void PrimesSieve::display_primes() const {
                 cout << endl;
                 column = 0;
             } else {
+                // Don't print space if last character in row or last character in general
                 if(i != max_prime_){cout << ' ';}
             }
         }
