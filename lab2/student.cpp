@@ -14,6 +14,7 @@ using namespace std;
 
 class Student{
 public:
+    // Declare methods
     Student(string first, string last, float gpa, int id);
 
     string full_name() const {return first_ + ' ' + last_;}
@@ -21,6 +22,7 @@ public:
     float gpa() const {return gpa_;}
     void print_info() const;
 private:
+    // Declare local vars.
     string first_;
     string last_;
     float gpa_;
@@ -30,6 +32,7 @@ private:
 Student::Student(string first, string last, float gpa, int id): first_{first}, last_{last}, gpa_{gpa}, id_{id} {}
 
 void Student::print_info() const{
+    // Print all info of student
     string gpa_str = to_string(gpa()).substr(0, 4);
     cout << full_name() << ", GPA: " << gpa_str << ", ID: " << id() << endl;
     
