@@ -1,0 +1,55 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\setlength{\parindent}{0pt}
+\usepackage[margin=1in]{geometry}
+
+\begin{document}
+
+Jason Qiu
+
+CS 382 Lab $\#3$
+
+\emph{I pledge my honor that I have abided by the Stevens Honor System.}
+
+\begin{enumerate}[1.]
+\item $\Theta (n^2)$
+\item $\Theta (n^{1/3})$
+\item $\Theta (n^{3/2} \log n)$
+\item $\Theta (n\log^2n)$
+\item $O(n)$
+\item $\Theta (n^3)$
+\item $\Theta (n \log n)$
+\item $\Theta (n^{1/2})$
+\item \begin{enumerate}[(a)]
+
+\item $\Theta (n)$
+\item $O(n)$
+\item $\Theta (n)$
+\end{enumerate}
+
+\item True. for $c_1 = 5$ and $c_2 = 6$. To find $n_0$:
+
+\centerline{
+	\begin{tabular}{|c|c|c|c|}
+	\hline
+	$n$ & $5n^2$ &  $5n^2 + 4n + 8$ & $6n^2$\\
+	\hline
+	1 & 5 & 17 & 6\\
+	\hline
+	5 & 125 & 153 & 150\\
+	\hline
+	6 & 180 & 212 & 216\\
+	\hline
+	7 & 245 & 281 & 294\\
+	\hline
+	\end{tabular}
+}
+
+So, $n_0 = 6$.
+\end{enumerate}
+
+\end{document}
