@@ -1,0 +1,67 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\setlength{\parindent}{0pt}
+\usepackage[margin=1in]{geometry}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=C,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\begin{document}
+
+Jason Qiu
+
+CS 385 Lab $\#4$
+
+\emph{I pledge my honor that I have abided by the Stevens Honor System.}
+
+\begin{enumerate}[1.]
+\item \begin{enumerate}[(a)]
+	\item \verb|mystery1(3, 7)| returns -1.
+	\item \verb|mystery1(8, 7)| returns 7.
+	\item \verb|mystery1(a, b)| returns $a - |a-b|$.
+\end{enumerate}
+
+\item \begin{enumerate}[(a)]
+	\item \verb|mystery2(1)| returns 1.
+	\item \verb|mystery2(2)| returns 1.
+	\item \verb|mystery2(3)| returns 0.
+	\item \verb|mystery2(4)| returns 1.
+	\item \verb|mystery2(5)| returns 0.
+	\item \verb|mystery2(6)| returns 0.
+	\item \verb|mystery2(7)| returns 0.
+	\item \verb|mystery2(8)| returns 1.
+	\item \verb|mystery2(a)| returns whether or not $a$ is a power of 2.
+\end{enumerate}
+
+\item \begin{enumerate}[(a)]
+	\item \verb|mystery3(5, 7)| returns 12.
+	\item \verb|mystery3(2, 8)| returns 10.
+	\item \verb|mystery3(a, b)| returns $a+b$.
+
+\end{enumerate}
+\end{enumerate}
+\end{document}

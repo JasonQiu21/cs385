@@ -1,0 +1,100 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\setlength{\parindent}{0pt}
+\usepackage[margin=1in]{geometry}
+
+\begin{document}
+
+Jason Qiu
+
+CS 385 Homework $\#1$
+
+\emph{I pledge my honor that I have abided by the Stevens Honor System.}
+
+\begin{enumerate}[1.]
+\item An upper bound for $n^4+10n^2+5$ Would be $n^4$ (that is, $n^4+10n^2+5 \in \mathcal{O}(n^4)$) . This is true for $c = 2$. To find $n_0$:
+
+\centerline{
+	\begin{tabular}{|c|c|c|}
+	\hline
+	$n_0$ & $n^4+10n^2+5$ &  $2n^4$\\
+	\hline
+	2 & 61 & 32\\
+	\hline
+	3 & 176 & 162\\
+	\hline
+	4 & 421 & 512\\
+	\hline
+	5 & 880 & 1250\\
+	\hline
+	\end{tabular}
+}
+So, $n_0 = 4$, and $2n^4 \geq n^4 + 10n^2 + 5$ for all $n \geq n_0$.
+
+
+\item $3n^3 - 2n \in \Theta (n^3)$. For all positive integers, $3n^3 \geq 3n^3 - 2n$, so our upper bound constant $c_2 = 3$. $2n^3 \leq 3n^3 - 2n $ for all integers greater than or equal to 2:
+
+ \centerline{
+	\begin{tabular}{|c|c|c|c|}
+	\hline
+	$n_0$ & $2n^3$ & $3n^3-2n$ & $3n^3$\\
+	\hline
+	1 & 2 & 1 & 3\\
+	\hline
+	2 & 16 & 20 & 24\\
+	\hline
+	3 & 54 & 75 & 81\\
+	\hline
+	\end{tabular}
+}
+
+So, $c_1 = 2, c_2 = 3$, and for all $n  \geq n_0 = 2$, $2n^3 \leq 3n^3-2n \leq 3n^3$.
+
+\item No. $\lim_{n \to \infty} \frac{3n-4}{cn^2} = 0$ for all positive $c$. This means that $cn^2$ eventually becomes larger than $3n-4$ for all $c$ for large values of $n$.
+\item From lowest to highest: $\mathcal{O}(1), \mathcal{O}(\text{lg}n), \mathcal{O}(n), \mathcal{O}(n\text{lg}n), \mathcal{O}(n^2), \mathcal{O}(n^2\text{lg}n), \mathcal{O}(n^3), \mathcal{O}(2^n),\mathcal{O}(n!), \mathcal{O}(n^n)$
+\item \begin{enumerate}[(a)]
+	\item 1000
+	\item 204094
+	\item 1897
+	\item 442
+	\item 8
+\end{enumerate}
+\item We can try some values (values for $64n\text{lg}n$ are approximate):
+
+ \centerline{
+	\begin{tabular}{|c|c|c|}
+	\hline
+	$n_0$ & $4n^3$ & $64n\text{lg}n$\\
+	\hline
+	1 & 4 & 0\\
+	\hline
+	2 & 32 & 128\\
+	\hline
+	3 & 108 & 304.312\\
+	\hline
+	4 & 256 & 512\\
+	\hline
+	5 & 500 & 743.016\\
+	\hline
+	6 & 864 & 992.625\\
+	\hline
+	7 & 1372 & 1257.695\\
+	\hline
+	\end{tabular}
+}
+So, $4n^3 \leq 64n\text{lg}n$ for $n = 2, 3, 4, 5, 6$.
+\item \begin{enumerate}[func1.]
+	\item $\Theta (n \text{lg} (n))$
+	\item $\Theta (n ^ {1/3})$
+	\item $\Theta (n^3)$
+	\item $\Theta (n)$
+	\item $\Theta (n)$
+
+\end{enumerate}
+\end{enumerate}
+
+\end{document}
