@@ -17,6 +17,7 @@ bool is_all_lowercase(const string &s) {
     int l = s.length();
     for(int i = 0; i < l; i++){
         if(!(std::islower(s[i]))){
+            // islower also returns false on non-alphabetic characters with the default C locale, like '坏' or '0' or '$'.
             return false;
         }
     }
@@ -31,15 +32,16 @@ bool all_unique_letters(const string &s) {
     // and bitshifting operators.  Using any other kind of solution will
     // automatically result in a grade of ZERO for the whole assignment.
     int l = s.length();
-    int map = 0;
-    int num;
+    int map = 0; // Map stores if we've seen a letter. First (binary) digit for 'a', second for 'b', etc.
+    int n;
     for(int i = 0; i < l; i++){
         // Check if letter has appeared
-        num = s[i]-97; // 'a' = 97, we want to map a=0, b=1, etc.
-        if(map & (1 << num)){
+        n = s[i]-97; // 'a' = 97, we want to map a=0, b=1, etc.
+        // Check map's n'th digit to see if particular character has been seen or not
+        if(map & (1 << n)){
             return false;
         }
-        map = map ^ (1 << num); // XOR b/c if map was already 1, then we'd have returned false
+        map = map ^ (1 << n); // XOR b/c if map was already 1, then we'd have returned false
     }
     return true;
 }
@@ -60,6 +62,7 @@ int main(int argc, char * const argv[]) {
         cerr << "Error with iss" << endl;
         return -1;
     }
+    // Main logic
     if(!(is_all_lowercase(input))){
         cerr << "Error: String must contain only lowercase letters." << endl;
         return -1;
