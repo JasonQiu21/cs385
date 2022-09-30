@@ -7,7 +7,6 @@
  ******************************************************************************/
 #include <iostream>
 #include <cctype>
-#include <sstream>
 
 using namespace std;
 
@@ -49,19 +48,12 @@ bool all_unique_letters(const string &s) {
 int main(int argc, char * const argv[]) {
     // TODO: reads and parses command line arguments.
     // Calls other functions to produce correct output.
-    string input;
-    istringstream iss;
     // Argument handling
     if(argc != 2){
         cerr << "Usage: ./unique <string>" << endl;
         return -1;
     }
-    iss.str(argv[1]);
-    if(!(iss >> input)){
-        // Shouldn't get here, but just in case
-        cerr << "Error with iss" << endl;
-        return -1;
-    }
+    string input = argv[1];
     // Main logic
     if(!(is_all_lowercase(input))){
         cerr << "Error: String must contain only lowercase letters." << endl;
