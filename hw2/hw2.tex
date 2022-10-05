@@ -136,12 +136,12 @@ int mystery(int n){
 		$T(n) = T(n-1) + 1 = T(n-2)) + 2$
 		\item $T(n-2) = T(n-3) + 1$
 	
-		$x(n) = T(n-2) + 2  = T(n-3) + 3$
-		\item $x(n) = T(n-i) + i$
+		$T(n) = T(n-2) + 2  = T(n-3) + 3$
+		\item $T(n) = T(n-i) + i$
 	
 		\item Initial condition $T(1) = 1$, so $n - i = 1 \Rightarrow i = n-1$
 	
-		\item $x(n) = x(1) + n-1 = \boxed{n}$
+		\item $T(n) = T(1) + n-1 = \boxed{n}$
 	\end{enumerate}
 \item The straightforward nonrecursive algorithm also uses $n$ iterations. (There also exists a formula for this sum that runs in constant time, but the word 'straightforward' leads me to assume that the algorithm in question is simply computing the sum iteratively).
 \end{enumerate}
