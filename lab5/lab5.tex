@@ -1,0 +1,64 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\setlength{\parindent}{0pt}
+\usepackage[margin=1in]{geometry}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=C,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\begin{document}
+
+Jason Qiu
+
+CS 385 Lab $\#5$
+
+\emph{I pledge my honor that I have abided by the Stevens Honor System.}
+
+\begin{enumerate}[1.]
+\item Bubble Sort Optimized \begin{enumerate}[(1)]
+	\setcounter{enumii}{-1}
+	\item $\{15, 23, 2, 78, 85, 97\}$
+	\item $\{15, 2, 23, 78, 85, 97\}$
+	\item $\{2, 15, 23, 78, 85, 97\}$
+\end{enumerate}
+\item Selection Sort \begin{enumerate}[(1)]
+	\setcounter{enumii}{-1}
+	\item $\{2, 15, 23, 78, 97, 85\}$
+	\item $\{2, 15, 23, 78, 97, 85\}$
+	\item $\{2, 15, 23, 78, 97, 85\}$
+	\item $\{2, 15, 23, 78, 97, 85\}$
+	\item $\{2, 15, 23, 78, 85, 97\}$
+\end{enumerate}
+\item Insertion Sort \begin{enumerate}[(1)]
+	\item $\{15, 78, 23, 2, 97, 85\}$
+	\item $\{15, 23, 78, 2, 97, 85\}$
+	\item $\{2, 15, 23, 78, 97, 85\}$
+\item $\{2, 15, 23, 78, 97, 85\}$
+	\item $\{2, 15, 23, 78, 85, 97\}$
+\end{enumerate}
+\end{enumerate}
+\end{document}
