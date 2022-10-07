@@ -26,8 +26,8 @@ vector< vector<int> > get_ways(int num_stairs) {
         return ways;
     } // Base case; return [[]]
     for(int i = 1; i<4; i++){
-        result = get_ways(num_stairs - i);
         if(num_stairs >= i){// Only add to the result if we can make the step
+            result = get_ways(num_stairs - i);
             s = result.size();
             for(int j = 0; j < s; j++){
                 v.clear();
