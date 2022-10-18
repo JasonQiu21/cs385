@@ -100,6 +100,10 @@ State pour(State start, State caps, char from, char to){
             s.c = start.c + min(pourAmount, pourCapacity);
             break;
     }
+
+    ostringstream oss;
+    oss << "Pour from " << from << " to " << to;
+    s.directions = oss.str();
     // TODO: set direction
     // s.directions = "Pour from ".push_back(from) + " to ".push_back(to);
     return s;
@@ -166,5 +170,6 @@ int main(int argc, char * const argv[]) {
         }
     }
     cout << waterjug(cap, goal).to_string() << endl;
+    cout << waterjug(cap, goal).directions << endl;
     return 0;
 }
