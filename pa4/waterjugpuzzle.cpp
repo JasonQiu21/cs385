@@ -41,7 +41,7 @@ struct State {
 //     return 0;
 // }
 
-State pour(State start, State caps, char from, char to){
+State* pour(State start, State caps, char from, char to){
     int pourAmount, pourCapacity; 
     switch(from) {
         case 'a': // a
@@ -68,57 +68,84 @@ State pour(State start, State caps, char from, char to){
     }
 
     // Initialize return state as fail, change if we pass the fail tests
-    State s(start.a, start.b, start.c, "fail");
-    if(pourCapacity <= 0){
+    State* s = new State(start.a, start.b, start.c, "fail");
+    if(pourCapacity <= 0 || pourAmount <= 0){
         return s;
     }
-    if(pourAmount <= 0){
-        return s;
-    }
-
 
     switch(from) {
         case 'a':
-            s.a = pourAmount - min(pourAmount, pourCapacity);
+            s->a = pourAmount - min(pourAmount, pourCapacity);
             break;
         case 'b':
-            s.b = pourAmount - min(pourAmount, pourCapacity);
+            s->b = pourAmount - min(pourAmount, pourCapacity);
             break;
         case 'c':
-            s.c = pourAmount - min(pourAmount, pourCapacity);
+            s->c = pourAmount - min(pourAmount, pourCapacity);
             break;
     }
 
     switch(to) {
         case 'a':
-            s.a = start.a + min(pourAmount, pourCapacity);
+            s->a = start.a + min(pourAmount, pourCapacity);
             break;
         case 'b':
-            s.b = start.b + min(pourAmount, pourCapacity);
+            s->b = start.b + min(pourAmount, pourCapacity);
             break;
         case 'c':
-            s.c = start.c + min(pourAmount, pourCapacity);
+            s->c = start.c + min(pourAmount, pourCapacity);
             break;
     }
 
     ostringstream oss;
     oss << "Pour from " << from << " to " << to;
-    s.directions = oss.str();
+    s->directions = oss.str();
     return s;
 
 }
 
-State waterjug(int* cap, int* goal){
-    queue<State> q;
-    State caps(cap[0], cap[1], cap[2], "Capacities");
-    State s(0, 0, cap[2], "Initial state.");
-    State g(goal[0], goal[1], goal[2], "Goal state.");
-    if(s.a == g.a && s.b == g.b && s.c == g.c){
-        return s;
+vector<State*> waterjug(int* cap, int* goal){
+    queue<State*> q;
+    vector<State*> states; // Vector of states to be deleted later on in main
+    vector<vector<int>> explored(cap[0] + 1); // Keep track of stored with matrix of size a * c, stored in the form of a vector of vectors.
+    for(int i = 0; i < cap[0] + 1; i++){
+        explored[i].resize(cap[1] + 1);
     }
-    s = pour(s, caps, 'c', 'a');
-    return s;
-    
+    char pours[6][2] = {{'c', 'a'}, {'b', 'a'}, {'c', 'b'}, {'a', 'b'}, {'b', 'c'}, {'a', 'c'}}; // Array of pours to check (in this order)
+
+    // Reference STates
+    State caps(cap[0], cap[1], cap[2], "Capacities");
+    State g(goal[0], goal[1], goal[2], "Goal state.");
+
+    // Initial state
+    State* s = new State(0, 0, cap[2], "Initial state.");
+    State* next;
+
+    // Initialize main BFS loop
+    q.push(s);
+    states.push_back(s);
+    while (!(q.empty())){
+        s = q.front();
+        cout << s->to_string() << endl;
+        for(int i = 0; i < 6; i++){
+            next = pour(*s, caps, pours[i][0], pours[i][1]);
+            // cout << next->to_string() << " " << next->directions << endl;
+            if(s->directions != "fail" && explored[next->a][next->b] == 0){ // If valid and non-visisted state: set parent, add to queue; if goal state, return
+                next->parent = s;
+                states.push_back(next);
+                if(next->a == g.a && next->b == g.b && next->c == g.c){
+                    return states;
+                }
+                q.push(next);
+                explored[(*next).a][(*next).b] = 1;
+            } else { // If invalid or already visited, delete state immediately
+                delete next;
+            }
+        }
+        q.pop();
+
+    }
+    return states;
 }
 
 int main(int argc, char * const argv[]) {
@@ -167,7 +194,7 @@ int main(int argc, char * const argv[]) {
             return -1;
         }
     }
-    cout << waterjug(cap, goal).to_string() << endl;
-    cout << waterjug(cap, goal).directions << endl;
+    vector<State*> states = waterjug(cap, goal);
+    cout << states.back()->to_string() << endl;
     return 0;
 }
