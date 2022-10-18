@@ -126,7 +126,7 @@ vector<State*> waterjug(int* cap, int* goal){
     states.push_back(s);
     while (!(q.empty())){
         s = q.front();
-        cout << s->to_string() << endl;
+        // cout << s->to_string() << endl;
         for(int i = 0; i < 6; i++){
             next = pour(*s, caps, pours[i][0], pours[i][1]);
             // cout << next->to_string() << " " << next->directions << endl;
@@ -173,15 +173,40 @@ int main(int argc, char * const argv[]) {
             }
 
             cerr << "Error: Invalid " << type << argv[i] << "' for jug " << letter << "." << endl;
-        return -1;
+            return -1;
         }
         if(i < 4){
+            if(tmp < 1){
+                if (i%3 == 1){
+                    letter = "A";
+                } else if(i%3 == 2){
+                    letter = "B";
+                } else {
+                    letter = "C";
+                }
+
+                cerr << "Error: Invalid capacity '" << argv[i] << "' for jug " << letter << "." << endl;
+                return -1;
+            }
             cap[i-1] = tmp;
         } else {
+            if(tmp < 0){
+                if (i%3 == 1){
+                    letter = "A";
+                } else if(i%3 == 2){
+                    letter = "B";
+                } else {
+                    letter = "C";
+                }
+                cerr << "Error: Invalid goal '" << argv[i] << "' for jug " << letter << "." << endl;
+                return -1;
+            }
             goal[i-4] = tmp;
         }
     }
+    int sum_goals = 0;
     for(int i = 0; i < 3; i++){
+        sum_goals+= goal[i];
         if(cap[i] < goal[i]){
             if (i == 0){
                 letter = "A";
@@ -190,16 +215,20 @@ int main(int argc, char * const argv[]) {
             } else {
                 letter = "C";
             }
-            cerr << "Error: Goal cannot exceed capacity for jug " << letter << "." << endl;
+            cerr << "Error: Goal cannot exceed capacity of jug " << letter << "." << endl;
             return -1;
         }
+    }
+    if(sum_goals != cap[2]){
+        cerr << "Error: Total gallons in goal state must be equal to the capacity of jug C." << endl;
+        return -1;
     }
     vector<State*> states = waterjug(cap, goal);
     State* result = states.back();
     if(result->a == goal[0] && result->b == goal[1] && result->c == goal[2]){
         cout << result->to_string() << endl << "success" << endl;
     } else{
-        cout << result->to_string() << endl << "fail" << endl;
+        cout << "No solution." << endl;
     }
     for(auto i: states){
         delete i;
