@@ -104,8 +104,6 @@ State pour(State start, State caps, char from, char to){
     ostringstream oss;
     oss << "Pour from " << from << " to " << to;
     s.directions = oss.str();
-    // TODO: set direction
-    // s.directions = "Pour from ".push_back(from) + " to ".push_back(to);
     return s;
 
 }
