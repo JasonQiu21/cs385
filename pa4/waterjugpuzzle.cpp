@@ -195,6 +195,14 @@ int main(int argc, char * const argv[]) {
         }
     }
     vector<State*> states = waterjug(cap, goal);
-    cout << states.back()->to_string() << endl;
+    State* result = states.back();
+    if(result->a == goal[0] && result->b == goal[1] && result->c == goal[2]){
+        cout << result->to_string() << endl << "success" << endl;
+    } else{
+        cout << result->to_string() << endl << "fail" << endl;
+    }
+    for(auto i: states){
+        delete i;
+    }
     return 0;
 }
