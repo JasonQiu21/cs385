@@ -72,33 +72,34 @@ State* pour(State start, State caps, char from, char to){
     if(pourCapacity <= 0 || pourAmount <= 0){
         return s;
     }
+    int difference = min(pourAmount, pourCapacity);
 
     switch(from) {
         case 'a':
-            s->a = pourAmount - min(pourAmount, pourCapacity);
+            s->a = pourAmount - difference;
             break;
         case 'b':
-            s->b = pourAmount - min(pourAmount, pourCapacity);
+            s->b = pourAmount - difference;
             break;
         case 'c':
-            s->c = pourAmount - min(pourAmount, pourCapacity);
+            s->c = pourAmount - difference;
             break;
     }
 
     switch(to) {
         case 'a':
-            s->a = start.a + min(pourAmount, pourCapacity);
+            s->a = start.a + difference;
             break;
         case 'b':
-            s->b = start.b + min(pourAmount, pourCapacity);
+            s->b = start.b + difference;
             break;
         case 'c':
-            s->c = start.c + min(pourAmount, pourCapacity);
+            s->c = start.c + difference;
             break;
     }
 
     ostringstream oss;
-    oss << "Pour from " << from << " to " << to;
+    oss << "Pour " << difference << " gallons from " << (char)(from - 32) << " to " << (char)(to - 32) << ".";
     s->directions = oss.str();
     return s;
 
@@ -112,6 +113,7 @@ vector<State*> waterjug(int* cap, int* goal){
         explored[i] = new bool[cap[1] + 1];
         fill(explored[i], explored[i] + cap[1] + 1, false);
     }
+    explored[0][0] = true;
     char pours[6][2] = {{'c', 'a'}, {'b', 'a'}, {'c', 'b'}, {'a', 'b'}, {'b', 'c'}, {'a', 'c'}}; // Array of pours to check (in this order)
 
     // Reference STates
@@ -127,10 +129,10 @@ vector<State*> waterjug(int* cap, int* goal){
     states.push_back(s);
     while (!(q.empty())){
         s = q.front();
-        cout << s->to_string() << endl;
+        cout << "bfs" << s->to_string() << endl;
         for(int i = 0; i < 6; i++){
             next = pour(*s, caps, pours[i][0], pours[i][1]);
-            // cout << next->to_string() << " " << next->directions << endl;
+            cout << next->to_string() << " " << next->directions << endl;
             if(s->directions != "fail" && !(explored[next->a][next->b])){ // If valid and non-visisted state: set parent, add to queue; if goal state, return
                 next->parent = s;
                 states.push_back(next);
@@ -142,7 +144,7 @@ vector<State*> waterjug(int* cap, int* goal){
                     return states;
                 }
                 q.push(next);
-                explored[(*next).a][(*next).b] = true;
+                explored[next->a][next->b] = true;
             } else { // If invalid or already visited, delete state immediately
                 delete next;
             }
