@@ -12,6 +12,7 @@
 #include <iomanip>
 #include <queue>
 #include <string>
+#include <stack>
 
 using namespace std;
 
@@ -129,10 +130,10 @@ vector<State*> waterjug(int* cap, int* goal){
     states.push_back(s);
     while (!(q.empty())){
         s = q.front();
-        cout << "bfs" << s->to_string() << endl;
+        // cout << "bfs" << s->to_string() << endl;
         for(int i = 0; i < 6; i++){
             next = pour(*s, caps, pours[i][0], pours[i][1]);
-            cout << next->to_string() << " " << next->directions << endl;
+            // cout << next->to_string() << " " << next->directions << endl;
             if(s->directions != "fail" && !(explored[next->a][next->b])){ // If valid and non-visisted state: set parent, add to queue; if goal state, return
                 next->parent = s;
                 states.push_back(next);
@@ -157,6 +158,20 @@ vector<State*> waterjug(int* cap, int* goal){
     }
     delete[] explored;
     return states;
+}
+
+void printStates(State* s){
+    stack<State*> toPrint;
+
+    while(s->parent != nullptr){
+        toPrint.push(s);
+        s = s->parent;
+    }
+    while(!(toPrint.empty())){
+        s = toPrint.top();
+        cout << s->directions << " " << s->to_string() << endl;
+        toPrint.pop();
+    }
 }
 
 int main(int argc, char * const argv[]) {
@@ -237,7 +252,7 @@ int main(int argc, char * const argv[]) {
     vector<State*> states = waterjug(cap, goal);
     State* result = states.back();
     if(result->a == goal[0] && result->b == goal[1] && result->c == goal[2]){
-        cout << result->to_string() << endl << "success" << endl;
+        printStates(result);
     } else{
         cout << "No solution." << endl;
     }
