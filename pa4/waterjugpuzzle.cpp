@@ -107,9 +107,10 @@ State* pour(State start, State caps, char from, char to){
 vector<State*> waterjug(int* cap, int* goal){
     queue<State*> q;
     vector<State*> states; // Vector of states to be deleted later on in main
-    vector<vector<int>> explored(cap[0] + 1); // Keep track of stored with matrix of size a * c, stored in the form of a vector of vectors.
+    bool** explored = new bool*[cap[0] + 1];
     for(int i = 0; i < cap[0] + 1; i++){
-        explored[i].resize(cap[1] + 1);
+        explored[i] = new bool[cap[1] + 1];
+        fill(explored[i], explored[i] + cap[1] + 1, false);
     }
     char pours[6][2] = {{'c', 'a'}, {'b', 'a'}, {'c', 'b'}, {'a', 'b'}, {'b', 'c'}, {'a', 'c'}}; // Array of pours to check (in this order)
 
@@ -126,18 +127,22 @@ vector<State*> waterjug(int* cap, int* goal){
     states.push_back(s);
     while (!(q.empty())){
         s = q.front();
-        // cout << s->to_string() << endl;
+        cout << s->to_string() << endl;
         for(int i = 0; i < 6; i++){
             next = pour(*s, caps, pours[i][0], pours[i][1]);
             // cout << next->to_string() << " " << next->directions << endl;
-            if(s->directions != "fail" && explored[next->a][next->b] == 0){ // If valid and non-visisted state: set parent, add to queue; if goal state, return
+            if(s->directions != "fail" && !(explored[next->a][next->b])){ // If valid and non-visisted state: set parent, add to queue; if goal state, return
                 next->parent = s;
                 states.push_back(next);
                 if(next->a == g.a && next->b == g.b && next->c == g.c){
+                    for(int i = 0; i < cap[0] + 1; i++){
+                        delete[] explored[i];
+                    }
+                    delete[] explored;
                     return states;
                 }
                 q.push(next);
-                explored[(*next).a][(*next).b] = 1;
+                explored[(*next).a][(*next).b] = true;
             } else { // If invalid or already visited, delete state immediately
                 delete next;
             }
@@ -145,6 +150,10 @@ vector<State*> waterjug(int* cap, int* goal){
         q.pop();
 
     }
+    for(int i = 0; i < cap[0] + 1; i++){
+        delete[] explored[i];
+    }
+    delete[] explored;
     return states;
 }
 
