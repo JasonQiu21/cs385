@@ -100,7 +100,8 @@ State* pour(State start, State caps, char from, char to){
     }
 
     ostringstream oss;
-    oss << "Pour " << difference << " gallons from " << (char)(from - 32) << " to " << (char)(to - 32) << ".";
+    string gallons_or_gallon = (difference == 1) ? " gallon from " : " gallons from ";
+    oss << "Pour " << difference << gallons_or_gallon << (char)(from - 32) << " to " << (char)(to - 32) << ".";
     s->directions = oss.str();
     return s;
 
@@ -124,6 +125,16 @@ vector<State*> waterjug(int* cap, int* goal){
     // Initial state
     State* s = new State(0, 0, cap[2], "Initial state.");
     State* next;
+
+    // If start state is our goal state
+    if(s->a == g.a && s->b == g.b && s->c == g.c){
+        states.push_back(s);
+        for(int i = 0; i < cap[0] + 1; i++){
+            delete[] explored[i];
+        }
+        delete[] explored;
+        return states;
+    }
 
     // Initialize main BFS loop
     q.push(s);
@@ -167,6 +178,7 @@ void printStates(State* s){
         toPrint.push(s);
         s = s->parent;
     }
+    toPrint.push(s);
     while(!(toPrint.empty())){
         s = toPrint.top();
         cout << s->directions << " " << s->to_string() << endl;
