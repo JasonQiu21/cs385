@@ -110,17 +110,17 @@ State* pour(State start, State caps, char from, char to){
 
 // Main waterjug function
 vector<State*> waterjug(int* cap, int* goal){
-    queue<State*> q;
+    queue<State*> q; // Queue for BFS
     vector<State*> states; // Vector of states to be deleted later on in main
-    bool** explored = new bool*[cap[0] + 1];
+    bool** explored = new bool*[cap[0] + 1]; // Explored states in the form of explored[capA][capB]
     for(int i = 0; i < cap[0] + 1; i++){
         explored[i] = new bool[cap[1] + 1];
         fill(explored[i], explored[i] + cap[1] + 1, false);
     }
-    explored[0][0] = true;
+    explored[0][0] = true; // Start state is always explored
     char pours[6][2] = {{'c', 'a'}, {'b', 'a'}, {'c', 'b'}, {'a', 'b'}, {'b', 'c'}, {'a', 'c'}}; // Array of pours to check (in this order)
 
-    // Reference STates
+    // Reference States
     State caps(cap[0], cap[1], cap[2], "Capacities");
     State g(goal[0], goal[1], goal[2], "Goal state.");
 
@@ -128,7 +128,7 @@ vector<State*> waterjug(int* cap, int* goal){
     State* s = new State(0, 0, cap[2], "Initial state.");
     State* next;
 
-    // If start state is our goal state
+    // If start state is our goal state, delete explored and return
     if(s->a == g.a && s->b == g.b && s->c == g.c){
         states.push_back(s);
         for(int i = 0; i < cap[0] + 1; i++){
@@ -147,9 +147,10 @@ vector<State*> waterjug(int* cap, int* goal){
         for(int i = 0; i < 6; i++){
             next = pour(*s, caps, pours[i][0], pours[i][1]);
             // cout << next->to_string() << " " << next->directions << endl;
-            if(s->directions != "fail" && !(explored[next->a][next->b])){ // If valid and non-visisted state: set parent, add to queue; if goal state, return
+            if(s->directions != "fail" && !(explored[next->a][next->b])){ // If valid and non-visisted state: set parent, add to queue
                 next->parent = s;
                 states.push_back(next);
+                // If we're at goal state, delete explored and return
                 if(next->a == g.a && next->b == g.b && next->c == g.c){
                     for(int i = 0; i < cap[0] + 1; i++){
                         delete[] explored[i];
@@ -166,6 +167,7 @@ vector<State*> waterjug(int* cap, int* goal){
         q.pop();
 
     }
+    // No solution - delete explored and return
     for(int i = 0; i < cap[0] + 1; i++){
         delete[] explored[i];
     }
@@ -190,6 +192,7 @@ void printStates(State* s){
 }
 
 int main(int argc, char * const argv[]) {
+    // Input handling  - wrong argument count
     if(argc != 7){
         cerr << "Usage: ./waterjugpuzzle <cap A> <cap B> <cap C> <goal A> <goal B> <goal C>" << endl;
         return -1;
@@ -199,10 +202,11 @@ int main(int argc, char * const argv[]) {
     int tmp;
     int cap[3];
     int goal[3];
-    
+
     for(int i = 1; i < argc; i++){
         input = argv[i];
         istringstream iss(input);
+        // Input handling - non-number capacity/goal
         if ( !(iss >> tmp) ) {
             type = (i < 4) ? "capacity '" : "goal '";
             if (i%3 == 1){
@@ -216,6 +220,7 @@ int main(int argc, char * const argv[]) {
             cerr << "Error: Invalid " << type << argv[i] << "' for jug " << letter << "." << endl;
             return -1;
         }
+        // Input handling - non-positive number capacity/goal
         if(i < 4){
             if(tmp < 1){
                 if (i%3 == 1){
@@ -246,6 +251,7 @@ int main(int argc, char * const argv[]) {
         }
     }
     int sum_goals = 0;
+    // Input handling - goal exceeds capacity
     for(int i = 0; i < 3; i++){
         sum_goals+= goal[i];
         if(cap[i] < goal[i]){
@@ -260,17 +266,22 @@ int main(int argc, char * const argv[]) {
             return -1;
         }
     }
+    // Input handling - goal state total volume != capacity of C
     if(sum_goals != cap[2]){
         cerr << "Error: Total gallons in goal state must be equal to the capacity of jug C." << endl;
         return -1;
     }
+
+    // Main logic
     vector<State*> states = waterjug(cap, goal);
     State* result = states.back();
+    // If goal state was the last explored state, we're goo
     if(result->a == goal[0] && result->b == goal[1] && result->c == goal[2]){
         printStates(result);
-    } else{
+    } else{ // Otherwise, goal state is unreachable
         cout << "No solution." << endl;
     }
+    // Delete all the states
     for(auto i: states){
         delete i;
     }
