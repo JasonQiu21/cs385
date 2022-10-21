@@ -170,7 +170,8 @@ vector<State*> waterjug(int* cap, int* goal){
 
 // Prints out the states
 void printStates(State* s){
-    stack<State*> toPrint;
+    // Becuase get the parent states, and we want to first print out the initial state, first push all states to a stack, then pop and print as we go
+    stack<State*> toPrint; 
 
     while(s->parent != nullptr){
         toPrint.push(s);
