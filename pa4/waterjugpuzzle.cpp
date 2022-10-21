@@ -33,15 +33,6 @@ struct State {
     }
 };
 
-// int main() {
-//     State s(0, 0, 8, "Initial state.");
-//     cout << s.to_string() << endl;
-//     s.a += 3;
-//     s.c -= 3;
-//     cout << s.to_string() << endl;
-//     return 0;
-// }
-
 // Function for pour action
 State* pour(State start, State caps, char from, char to){
     int pourAmount, pourCapacity; 
@@ -74,8 +65,9 @@ State* pour(State start, State caps, char from, char to){
     if(pourCapacity <= 0 || pourAmount <= 0){
         return s;
     }
-    int difference = min(pourAmount, pourCapacity);
+    int difference = min(pourAmount, pourCapacity); // How much we can actually pour
 
+    // Remove a volume of water from 'from' jug
     switch(from) {
         case 'a':
             s->a = pourAmount - difference;
@@ -88,6 +80,7 @@ State* pour(State start, State caps, char from, char to){
             break;
     }
 
+    // Add same volume to 'to' jug
     switch(to) {
         case 'a':
             s->a = start.a + difference;
