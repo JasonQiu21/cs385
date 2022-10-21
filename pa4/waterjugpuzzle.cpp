@@ -42,6 +42,7 @@ struct State {
 //     return 0;
 // }
 
+// Function for pour action
 State* pour(State start, State caps, char from, char to){
     int pourAmount, pourCapacity; 
     switch(from) {
@@ -107,6 +108,7 @@ State* pour(State start, State caps, char from, char to){
 
 }
 
+// Main waterjug function
 vector<State*> waterjug(int* cap, int* goal){
     queue<State*> q;
     vector<State*> states; // Vector of states to be deleted later on in main
@@ -171,6 +173,7 @@ vector<State*> waterjug(int* cap, int* goal){
     return states;
 }
 
+// Prints out the states
 void printStates(State* s){
     stack<State*> toPrint;
 
