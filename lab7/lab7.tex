@@ -1,0 +1,53 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\setlength{\parindent}{0pt}
+\usepackage[margin=1in]{geometry}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=C,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\begin{document}
+
+Jason Qiu
+
+CS 385 Lab $\#7$
+
+\emph{I pledge my honor that I have abided by the Stevens Honor System.}
+
+\begin{enumerate}[1.]
+\item $\Theta (n^2)$
+\item $\Theta (n^2 \text{lg} n)$
+\item $\Theta (n^{\log_3{3}}) = \Theta (n)$
+\item Recurrence: $T(n) = 2T(\frac{n}{2}) + \Theta(n)$, $T(0) = c$ for some $c \in \mathbb{Z}^+$
+
+Complexity: $\Theta (n \text{lg} n)$
+
+\item Recurrence: $T(n) = T(\frac{n}{2}) + \Theta(n^2)$, $T(0) = c$ for some $c \in \mathbb{Z}^+$
+
+Complexity: $\Theta (n^2)$
+\end{enumerate}
+\end{document}
