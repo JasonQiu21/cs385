@@ -106,13 +106,13 @@ int main(int argc, char *argv[]) {
     }
 
     // TODO - call the quick_select function and display the result
-    int* array = new int[num_values];
-    for(int i = 0; i < num_values; i++){
-        array[i] = values[i];
-    }
-    int result = quick_select(array, 0, num_values-1, k);
+    // int* array = new int[num_values];
+    // for(int i = 0; i < num_values; i++){
+    //     array[i] = values[i];
+    // }
+    int result = quick_select(&values[0], 0, num_values-1, k);
     cout << "Smallest element " << k << ": " <<  result << endl;
 
-    delete[] array;
+    // delete[] array;
     return 0;
 }
