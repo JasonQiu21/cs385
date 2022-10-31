@@ -173,17 +173,18 @@ maxtime=1
 # You are allowed up to 1 second to count inversions on up to 100,000 values.
 run_test_with_args_and_input "" "2 1" "Enter sequence of integers, each followed by a space: Number of inversions: 1"
 
-run_test_with_args_and_input "" "9 2 1 0 1 3" "Enter sequence of integers, each followed by a space: Number of inversions: 9"
+run_test_with_args_and_input "" "3 1 0 1 2 9" "Enter sequence of integers, each followed by a space: Number of inversions: 5"
 run_test_with_args_and_input "" "1 2 3 2 1" "Enter sequence of integers, each followed by a space: Number of inversions: 4"
-run_test_with_args_and_input "" "5 0 6 2" "Enter sequence of integers, each followed by a space: Number of inversions: 2"
-run_test_with_args_and_input "" "2 7 6 3 1 8" "Enter sequence of integers, each followed by a space: Number of inversions: 6"
+run_test_with_args_and_input "" "2 6 0 5" "Enter sequence of integers, each followed by a space: Number of inversions: 3"
+run_test_with_args_and_input "" "8 1 3 6 7 2" "Enter sequence of integers, each followed by a space: Number of inversions: 8"
 
-run_test_with_args_and_input "" "2" "Enter sequence of integers, each followed by a space: Number of inversions: 0" # Single element
-run_test_with_args_and_input "" "2 3" "Enter sequence of integers, each followed by a space: Number of inversions: 0" # No inversions
-run_test_with_args_and_input "" "2 3 4 5 6" "Enter sequence of integers, each followed by a space: Number of inversions: 0" # No inversions
+run_test_with_args_and_input "" "1" "Enter sequence of integers, each followed by a space: Number of inversions: 0" # Single element
+run_test_with_args_and_input "" "1 2" "Enter sequence of integers, each followed by a space: Number of inversions: 0" # No inversions
+run_test_with_args_and_input "" "1 2 3 4 5 6" "Enter sequence of integers, each followed by a space: Number of inversions: 0" # No inversions
 run_test_with_args_and_input "" "1 1 1 1 1 1 1" "Enter sequence of integers, each followed by a space: Number of inversions: 0" # Repeated number
 run_test_with_args_and_input "" "$(echo {1..100000})" "Enter sequence of integers, each followed by a space: Number of inversions: 0" # Max inputs
 run_test_with_args_and_input "" "$(echo {100000..1})" "Enter sequence of integers, each followed by a space: Number of inversions: 4999950000" # Max inputs
+
 
 
 
