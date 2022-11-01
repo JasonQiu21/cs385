@@ -25,11 +25,12 @@ static long merge(int array[], int scratch[], int low, int mid, int high);
  */
 long count_inversions_slow(int array[], int length) {
     // TODO
-    int count = 0, current;
+    long count = 0;
+    int current;
     for(int i = 0; i < length; i++){
         current = array[i];
         for(int j = i+1; j < length; j++){
-            if(array[j] > current){
+            if(array[j] < current){
                 count++;
             }
         }
@@ -55,6 +56,7 @@ static long merge(int array[], int scratch[], int low, int mid, int high){
     while(i <= mid && j <= high){
         if(array[i] <= array[j]){
             scratch[k] = array[i];
+            k++;
             i++;
         } else {
             scratch[k] = array[j];
@@ -81,8 +83,9 @@ static long merge(int array[], int scratch[], int low, int mid, int high){
 static long mergesort(int array[], int scratch[], int low, int high) {
     // TODO
     long inversions = 0;
-    int mid;
+    int mid = 0;
     if(low < high){
+        mid = (low + high)/2;
         inversions += mergesort(array, scratch, low, mid);
         inversions += mergesort(array, scratch, mid + 1, high);
         inversions += merge(array, scratch, low, mid, high);
@@ -133,12 +136,16 @@ int main(int argc, char *argv[]) {
             str += c;
         }
     }
+    if(values.size() < 1){
+        cerr << "Error: Sequence of integers not received." << endl;
+        return -1;
+    }
 
     // TODO: produce output
     if(slow)
-        cout << "Number of inversions: " << count_inversions_slow(&values[0], values.size());
+        cout << "Number of inversions: " << count_inversions_slow(&values[0], values.size()) << endl;
     else
-        cout << "Number of inversions: " << count_inversions_fast(&values[0], values.size());
+        cout << "Number of inversions: " << count_inversions_fast(&values[0], values.size()) << endl;
 
     return 0;
 }

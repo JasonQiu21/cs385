@@ -154,8 +154,8 @@ run_test_with_args_and_input "slow" "2 1" "Enter sequence of integers, each foll
 run_test_with_args_and_input "slow" "3 1 0 1 2 9" "Enter sequence of integers, each followed by a space: Number of inversions: 5"
 run_test_with_args_and_input "slow" "1 2 3 2 1" "Enter sequence of integers, each followed by a space: Number of inversions: 4"
 run_test_with_args_and_input "slow" "2 6 0 5" "Enter sequence of integers, each followed by a space: Number of inversions: 3"
-run_test_with_args_and_input "slow" "8 1 3 6 7 2" "Enter sequence of integers, each followed by a space: Number of inversions: 8"
 
+run_test_with_args_and_input "slow" "-8 -1 -3 -6 -7 -2" "Enter sequence of integers, each followed by a space: Number of inversions: 7" # Negatives
 run_test_with_args_and_input "slow" "1" "Enter sequence of integers, each followed by a space: Number of inversions: 0" # Single element
 run_test_with_args_and_input "slow" "1 2" "Enter sequence of integers, each followed by a space: Number of inversions: 0" # No inversions
 run_test_with_args_and_input "slow" "1 2 3 4 5 6" "Enter sequence of integers, each followed by a space: Number of inversions: 0" # No inversions
@@ -176,8 +176,8 @@ run_test_with_args_and_input "" "2 1" "Enter sequence of integers, each followed
 run_test_with_args_and_input "" "3 1 0 1 2 9" "Enter sequence of integers, each followed by a space: Number of inversions: 5"
 run_test_with_args_and_input "" "1 2 3 2 1" "Enter sequence of integers, each followed by a space: Number of inversions: 4"
 run_test_with_args_and_input "" "2 6 0 5" "Enter sequence of integers, each followed by a space: Number of inversions: 3"
-run_test_with_args_and_input "" "8 1 3 6 7 2" "Enter sequence of integers, each followed by a space: Number of inversions: 8"
 
+run_test_with_args_and_input "" "-8 -1 -3 -6 -7 -2" "Enter sequence of integers, each followed by a space: Number of inversions: 7" # Negatives
 run_test_with_args_and_input "" "1" "Enter sequence of integers, each followed by a space: Number of inversions: 0" # Single element
 run_test_with_args_and_input "" "1 2" "Enter sequence of integers, each followed by a space: Number of inversions: 0" # No inversions
 run_test_with_args_and_input "" "1 2 3 4 5 6" "Enter sequence of integers, each followed by a space: Number of inversions: 0" # No inversions
