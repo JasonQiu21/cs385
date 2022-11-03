@@ -1,0 +1,76 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\setlength{\parindent}{0pt}
+\usepackage[margin=1in]{geometry}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=C,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\begin{document}
+
+Jason Qiu
+
+CS 385 Lab $\#9$
+
+\emph{I pledge my honor that I have abided by the Stevens Honor System.}
+
+\begin{enumerate}[1.]
+\item 8 counters are needed. In JSON style: $\{0: 5, 1: 7, 2: 3, 3: 2, 4: 4, 5: 9, 6: 4, 7: 6\}$.
+
+As array: [5, 7, 3, 2, 4, 9, 4, 6]. As Table:
+
+\centerline{
+\begin{tabular}{|c|c|}
+	\hline
+	index & count \\
+	\hline
+	0 & 5 \\
+	\hline
+	1 & 7 \\
+	\hline
+	2 & 3 \\
+	\hline
+	3 & 2 \\
+	\hline
+	4 & 4 \\
+	\hline
+	5 & 9 \\
+	\hline
+	6 & 4 \\
+	\hline
+	7 & 6 \\
+	\hline
+\end{tabular}}
+\item \begin{enumerate}[Step 1:]
+	\item \{5F05EF13, 794E8117, 52DB6E42, 74284442, 55526E42, 1E90D74E, 520B6E78, 4EC1EEA9\}
+	\item \{74284442, 52DB6E42, 55526E42, 520B6E78, 794E8117, 1E90D74E, 4EC1EEA9, 5F05EF13\}
+	\item \{5F05EF13, 520B6E78, 74284442, 794E8117, 55526E42, 1E90D74E, 4EC1EEA9, 52DB6E42\}
+	\item \{1E90D74E, 4EC1EEA9, 520B6E78, 52DB6E42, 55526E42, 5F05EF13, 74284442, 794E8117\}
+
+\end{enumerate}
+\end{enumerate}
+\end{document}
