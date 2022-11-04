@@ -18,7 +18,7 @@ using namespace std;
 
 // Function prototype.
 static long mergesort(int array[], int scratch[], int low, int high);
-static long merge(int array[], int scratch[], int low, int mid, int high);
+static long merge(int array[], int scratch[], int low, int mid, int high); // Overload merge as well
 
 /**
  * Counts the number of inversions in an array in Theta(n^2) time.
@@ -55,16 +55,19 @@ static long merge(int array[], int scratch[], int low, int mid, int high){
     long inversions = 0;
     while(i <= mid && j <= high){
         if(array[i] <= array[j]){
+            // Move in from low half; do not add inversions
             scratch[k] = array[i];
             k++;
             i++;
         } else {
+            // Move in from high half; add inversions equal to number of elements in low
             scratch[k] = array[j];
             inversions += (mid-i) + 1;
             k++;
             j++;
         }
     }
+    // Add the rest of whichever half has elements left
     while(i <= mid){
         scratch[k] = array[i];
         k++;
@@ -75,6 +78,7 @@ static long merge(int array[], int scratch[], int low, int mid, int high){
         k++;
         j++;
     }
+    // Copy scratch back into array
     for(int i = low; i<= high; i++)
         array[i] = scratch[i];
     return inversions;
@@ -86,9 +90,9 @@ static long mergesort(int array[], int scratch[], int low, int high) {
     int mid = 0;
     if(low < high){
         mid = (low + high)/2;
-        inversions += mergesort(array, scratch, low, mid);
-        inversions += mergesort(array, scratch, mid + 1, high);
-        inversions += merge(array, scratch, low, mid, high);
+        inversions += mergesort(array, scratch, low, mid); // Sort left
+        inversions += mergesort(array, scratch, mid + 1, high); // Sort right
+        inversions += merge(array, scratch, low, mid, high); // Merge arrays
     }
     return inversions;
 }
@@ -136,6 +140,7 @@ int main(int argc, char *argv[]) {
             str += c;
         }
     }
+    // Error checking for nonzezro number of ints.
     if(values.size() < 1){
         cerr << "Error: Sequence of integers not received." << endl;
         return -1;
