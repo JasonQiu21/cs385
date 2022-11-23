@@ -234,7 +234,7 @@ public:
         if(y==nullptr){
             root_ = z;
         }
-        else if(key < y.key()){
+        else if(key < y->key()){
             y->left = z;
         } else {
             y->right = z;
@@ -403,8 +403,8 @@ private:
                     z = z->parent;
                     left_rotate(z);
                 } else { // Case 3a: z's uncle is black, z is left child
-                    z->p->color = BLACK;
-                    z->p->p->color = RED;
+                    z->parent->color = BLACK;
+                    z->parent->parent->color = RED;
                     right_rotate(z->parent->parent);
                 }
             } else { // z's parent is a right child and:
@@ -418,8 +418,8 @@ private:
                     z = z->parent;
                     right_rotate(z);
                 } else { // Case 3b: z's uncle is black, z is right child
-                    z->p->color = BLACK;
-                    z->p->p->color = RED;
+                    z->parent->color = BLACK;
+                    z->parent->parent->color = RED;
                     left_rotate(z->parent->parent);
                 }
             }
@@ -456,7 +456,7 @@ private:
     void right_rotate(Node<K, V> *x) {
         Node <K, V> *y = x->left; // Set y
         x->left = y->right; // Turn y's right subtree into x's left subtree
-        if(y.right != nullptr){
+        if(y->right != nullptr){
             y->right->parent = x;
         }
         y->parent = x->parent; // Link x's parent to y
