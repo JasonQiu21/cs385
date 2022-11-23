@@ -476,11 +476,11 @@ private:
      * A null node starts at height -1.
      */
     int height(Node<K, V> *node) const {
-        // TODO
         if(node == nullptr)
             return -1;
-        return 1 + height(node->right);
-        
+        int left = height(node->left);
+        int right = height(node->right);
+        return (right > left) ? 1  + right : 1 + left; // Return 1 + max(h(l), h(r))
     }
 
     /**
