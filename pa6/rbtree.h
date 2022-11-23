@@ -221,8 +221,9 @@ public:
         while(x != nullptr){
             y = x;
             if(key == x->key()){
-                std::string error_msg = "Attempt to insert duplicate key '" + key + "'.";
-                throw tree_exception(error_msg);
+                std::stringstream ss;
+                ss << "Attempt to insert duplicate key '" << key << "'." << std::endl;
+                throw tree_exception(ss.str());
             } else if(key < x->key()){
                 x = x->left;
             } else {
