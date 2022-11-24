@@ -625,6 +625,10 @@ private:
      */
     size_t sum_null_levels(Node<K, V> *node, size_t level) const {
         // TODO
+        if(node == nullptr){
+            return level;
+        }
+        return sum_levels(node->left, level + 1) + sum_levels(node->right, level +1);
     }
 };
 
