@@ -521,7 +521,7 @@ private:
         int treeHeight = leftHeight + rightHeight +1;
 
         // return max of treeHeight and diameters
-        return max(max(leftDiameter, rightDiameter), treeHeight);
+        return std::max(std::max(leftDiameter, rightDiameter), treeHeight);
     }
 
     /**
