@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name        : rbtree.h
- * Author      : Jason Qiu
+ * Author      : Jason Qiu and Jackey Yang
  * Version     : 1.0
  * Date        : 22 Nov 2022
  * Description : Implementation of red-black tree.
@@ -295,6 +295,7 @@ public:
      */
     size_t diameter() const {
         // TODO
+        return diameter(root_);
     }
 
     /**
@@ -481,7 +482,7 @@ private:
             return -1;
         int left = height(node->left);
         int right = height(node->right);
-        return (right > left) ? 1  + right : 1 + left; // Return 1 + max(h(l), h(r))
+        return (right > left) ? 1 + right : 1 + left; // Return 1 + max(h(l), h(r))
     }
 
     /**
@@ -505,7 +506,23 @@ private:
      * Helper method to assist in the computation of tree diameter.
      */
     int diameter(Node<K, V> *node) const {
-        // TODO
+        // tree is empty
+        if (node == nullptr) {
+            return 0;
+        }
+
+        // get height and diameter of left and right subtrees
+        int leftHeight = height(node -> left);
+        int leftDiameter = diameter(node -> left);
+        
+        int rightHeight = height(node -> right);
+        int rightDiameter = diameter(node -> right);
+
+        // +1 for root
+        int treeHeight = leftHeight + rightHeight +1;
+
+        // return max of treeHeight and diameters
+        return max(max(leftDiameter, rightDiameter), treeHeight);
     }
 
     /**
