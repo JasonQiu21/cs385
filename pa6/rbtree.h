@@ -596,7 +596,14 @@ private:
      * has sum 0 + 2(1) + 2 = 4.
      */
     size_t sum_levels(Node<K, V> *node, size_t level) const {
-        // TODO
+        size_t counter = 0;
+        if(node->left != nullptr){
+            counter += sum_levels(node->left, level + 1);
+        }
+        if(node->right != nullptr){
+            counter += sum_levels(node->right, level + 1);
+        }
+        return counter + level;
     }
 
     size_t sum_null_levels() const {
