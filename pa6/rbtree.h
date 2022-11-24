@@ -294,7 +294,6 @@ public:
      * pass through the root.
      */
     size_t diameter() const {
-        // TODO
         return diameter(root_);
     }
 
