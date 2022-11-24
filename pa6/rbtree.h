@@ -624,7 +624,6 @@ private:
      * has sum 3(2) + 2(3) = 12.
      */
     size_t sum_null_levels(Node<K, V> *node, size_t level) const {
-        // TODO
         if(node == nullptr){
             return level;
         }
