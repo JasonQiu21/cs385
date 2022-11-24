@@ -530,7 +530,19 @@ private:
      * Width is defined as the number of nodes residing at a level.
      */
     size_t width(Node<K, V> *node, size_t level) const {
-        // TODO
+        // tree is empty
+        if (node == nullptr) {
+            return 0;
+        }
+        // level is 0 
+        if (level == 0) {
+            return 1;
+        }
+        
+        size_t leftWidth = width(node -> left, level - 1);
+        size_t rightWidth = width(node -> right, level -1);
+
+        return leftWidth + rightWidth;
     }
 
     size_t null_count() const {
