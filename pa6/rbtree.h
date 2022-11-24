@@ -489,7 +489,10 @@ private:
      * For this method, a leaf is a non-null node that has no children.
      */
     size_t leaf_count(Node<K, V> *node) const {
-        // TODO
+        if(node->left == nullptr && node->right == nullptr){
+            return 1;
+        }
+        return leaf_count(node->left) + leaf_count(node->right);
     }
 
     /**
@@ -498,7 +501,10 @@ private:
      * An internal node has at least one child.
      */
     size_t internal_node_count(Node<K, V> *node) const {
-        // TODO
+        if(node->left == nullptr && node->right == nullptr){
+            return 0;
+        }
+        return 1 + internal_node_count(node->left) + internal_node_count(node->right);
     }
 
     /**
