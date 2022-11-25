@@ -344,7 +344,11 @@ public:
                 x = x->right;
             }
         }
-        return iterator(x, this);
+        if(x != nullptr){
+            return iterator(x, this);
+        } else {
+            return end();
+        }
     }
 
     /**
@@ -489,6 +493,9 @@ private:
      * For this method, a leaf is a non-null node that has no children.
      */
     size_t leaf_count(Node<K, V> *node) const {
+        if(node == nullptr){
+            return 0;
+        }
         if(node->left == nullptr && node->right == nullptr){
             return 1;
         }
@@ -501,6 +508,9 @@ private:
      * An internal node has at least one child.
      */
     size_t internal_node_count(Node<K, V> *node) const {
+        if(node == nullptr){
+            return 0;
+        }
         if(node->left == nullptr && node->right == nullptr){
             return 0;
         }
@@ -603,6 +613,9 @@ private:
      */
     size_t sum_levels(Node<K, V> *node, size_t level) const {
         size_t counter = 0;
+        if(node == nullptr){
+            return 0;
+        }
         if(node->left != nullptr){
             counter += sum_levels(node->left, level + 1);
         }
