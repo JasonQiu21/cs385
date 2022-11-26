@@ -222,7 +222,7 @@ public:
             y = x;
             if(key == x->key()){
                 std::stringstream ss;
-                ss << "Attempt to insert duplicate key '" << key << "'." << std::endl;
+                ss << "Attempt to insert duplicate key '" << key << "'.";
                 throw tree_exception(ss.str());
             } else if(key < x->key()){
                 x = x->left;
@@ -598,32 +598,11 @@ private:
      * Returns the count of null nodes in the red-black tree starting at node.
      */
     size_t null_count(Node<K, V> *node) const {
-        // base case: currNode is null
-        // if left and right nodes are null add 1 respectively
-        // else traverse down that subtree
-        size_t counter = 0;
-
-        // curr node is null
+        // If node == null, return 1; else, return null count of its children
         if (node == nullptr) {
             return 1;
         }
-        else {
-            // if left node is null, increment counter; else, go through that subtree
-            if (node -> left == nullptr) {
-                counter++;
-            } else {
-                counter += null_count(node -> left);
-            }
-
-            // if right node is null, increment counter; else, go through that subtree
-            if (node -> right == nullptr) {
-                counter++;
-            } else {
-                counter += null_count(node -> right);
-            }
-        }
-
-        return counter;
+        return null_count(node->left) + null_count(node->right);
     }
 
     size_t sum_levels() const {
@@ -676,7 +655,7 @@ private:
         if(node == nullptr){
             return level;
         }
-        return sum_levels(node->left, level + 1) + sum_levels(node->right, level +1);
+        return sum_null_levels(node->left, level + 1) + sum_null_levels(node->right, level +1);
     }
 };
 
