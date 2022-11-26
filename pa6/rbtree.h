@@ -564,7 +564,7 @@ private:
         int rightDiameter = diameter(node -> right);
 
         // +1 for root
-        int treeHeight = leftHeight + rightHeight +1;
+        int treeHeight = leftHeight + rightHeight +2;
 
         // return max of treeHeight and diameters
         return std::max(std::max(leftDiameter, rightDiameter), treeHeight);
