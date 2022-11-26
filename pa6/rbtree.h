@@ -241,6 +241,7 @@ public:
             y->right = z;
         }
         insert_fixup(z);
+        size_++;
     }
 
     /**
@@ -385,6 +386,8 @@ private:
      * Deletes all nodes from the red-black tree.
      */
     void delete_tree(Node<K, V> *n) {
+        if(n == nullptr)
+            return;
         if(n->left != nullptr)
             delete_tree(n->left);
         if(n->right != nullptr)
@@ -396,6 +399,10 @@ private:
      * Fixup method described on p. 316 of CLRS.
      */
     void insert_fixup(Node<K, V> *z) {
+        if(z->parent == nullptr){
+            root_->color = BLACK;
+            return;
+        }
         while(z->parent->color == RED){
             if(z->parent == z->parent->parent->left){// z's parent is a left child and:
                 Node<K, V> *y = z->parent->parent->right;
@@ -428,7 +435,8 @@ private:
                     left_rotate(z->parent->parent);
                 }
             }
-
+            if(z->parent == nullptr)
+                break;
         }
 
         // Last line below
