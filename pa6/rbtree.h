@@ -406,33 +406,55 @@ private:
         while(z->parent->color == RED){
             if(z->parent == z->parent->parent->left){// z's parent is a left child and:
                 Node<K, V> *y = z->parent->parent->right;
-                if(y->color == RED){ // Case 1: z's uncle is red
-                    z->parent->color = BLACK;
-                    y->color = BLACK;
-                    z->parent->parent->color = RED;
-                    z = z->parent->parent;
-                } else if(z == z->parent->right){ // Case 2a: z's uncle is black, z is right child
-                    z = z->parent;
-                    left_rotate(z);
-                } else { // Case 3a: z's uncle is black, z is left child
-                    z->parent->color = BLACK;
-                    z->parent->parent->color = RED;
-                    right_rotate(z->parent->parent);
+                if(y == nullptr){ // Treat null uncle as black node
+                    if(z == z->parent->right){ // Case 2a: z's uncle is black, z is right child
+                        z = z->parent;
+                        left_rotate(z);
+                    } else { // Case 3a: z's uncle is black, z is left child
+                        z->parent->color = BLACK;
+                        z->parent->parent->color = RED;
+                        right_rotate(z->parent->parent);
+                    }
+                } else { // Non-null uncle
+                    if(y->color == RED){ // Case 1: z's uncle is red
+                        z->parent->color = BLACK;
+                        y->color = BLACK;
+                        z->parent->parent->color = RED;
+                        z = z->parent->parent;
+                    } else if(z == z->parent->right){ // Case 2a: z's uncle is black, z is right child
+                        z = z->parent;
+                        left_rotate(z);
+                    } else { // Case 3a: z's uncle is black, z is left child
+                        z->parent->color = BLACK;
+                        z->parent->parent->color = RED;
+                        right_rotate(z->parent->parent);
+                    }
                 }
             } else { // z's parent is a right child and:
                 Node<K, V> *y = z->parent->parent->left;
-                if(y->color == RED){ // Case 1: z's uncle is red
-                    z->parent->color = BLACK;
-                    y->color = BLACK;
-                    z->parent->parent->color = RED;
-                    z = z->parent->parent;
-                } else if(z == z->parent->left){ // Case 2b: z's uncle is black, z is left child
-                    z = z->parent;
-                    right_rotate(z);
-                } else { // Case 3b: z's uncle is black, z is right child
-                    z->parent->color = BLACK;
-                    z->parent->parent->color = RED;
-                    left_rotate(z->parent->parent);
+                if(y == nullptr){ // Treat null uncle as black node
+                    if(z == z->parent->left){ // Case 2b: z's uncle is black, z is left child
+                        z = z->parent;
+                        right_rotate(z);
+                    } else { // Case 3b: z's uncle is black, z is right child
+                        z->parent->color = BLACK;
+                        z->parent->parent->color = RED;
+                        left_rotate(z->parent->parent);
+                    }
+                } else { // Non-null uncle
+                    if(y->color == RED){ // Case 1: z's uncle is red
+                        z->parent->color = BLACK;
+                        y->color = BLACK;
+                        z->parent->parent->color = RED;
+                        z = z->parent->parent;
+                    } else if(z == z->parent->left){ // Case 2b: z's uncle is black, z is left child
+                        z = z->parent;
+                        right_rotate(z);
+                    } else { // Case 3b: z's uncle is black, z is right child
+                        z->parent->color = BLACK;
+                        z->parent->parent->color = RED;
+                        left_rotate(z->parent->parent);
+                    }
                 }
             }
             if(z->parent == nullptr)
