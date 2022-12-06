@@ -16,7 +16,9 @@
 
 using namespace std;
 
-int len(int num) {
+long len(long num) {
+    if(num == 0)
+        return 1;
     int count = 0;
     while(num >= 1){
         count++;
@@ -40,6 +42,7 @@ void display_table(long** const matrix, const string &label, int num_vertices, c
         } 
         } 
     } 
+    // cout << max_val << endl;
     int max_cell_width = use_letters ? len(max_val) : 
         len(max(static_cast<long>(num_vertices), max_val)); 
     cout << ' '; 
@@ -70,6 +73,37 @@ void delete_array(long** distance_matrix, int vertex_count){
     }
     delete [] distance_matrix;
 }
+
+string gen_path_helper(long** through_matrix, long start, long end){
+    string head = "";
+    if(start == end){
+        head.push_back('A' + start);
+        return head;
+    }
+    if(through_matrix[start][end] != LONG_MAX){
+        head = gen_path_helper(through_matrix, start, through_matrix[start][end]);
+        string tail = gen_path_helper(through_matrix, through_matrix[start][end], end);
+        head.append(" -> ");
+        head.append(tail);
+        return head;
+    }
+    head.push_back('A' + start);
+    // head.append(" -> ");
+    // head.push_back('A' + end);
+    return head;
+}
+
+string gen_path(long** through_matrix, long start, long end){
+    if(start != end){
+        string res = gen_path_helper(through_matrix, start, end);
+        res.append(" -> ");
+        res.push_back('A' + end);
+        return res;
+    }
+    return gen_path_helper(through_matrix, start, end);
+}
+
+
 int main(int argc, const char *argv[]) {
     // Make sure the right number of command line arguments exist.
     if (argc != 2) {
@@ -208,7 +242,15 @@ int main(int argc, const char *argv[]) {
         }
     }
     display_table(distance_matrix, "Path lengths:", vertex_count);
-    display_table(through_matrix, "Intermediate Vertices", vertex_count, true);
+    display_table(through_matrix, "Intermediate vertices:", vertex_count, true);
+    string path;
+    for(int i = 0; i < vertex_count; i++){
+        for(int j = 0; j < vertex_count; j++){
+            path = gen_path(through_matrix, i, j);
+            cout << (char) ('A' + i) << " -> " << (char) ('A' + j) << ", distance: " << ((distance_matrix[i][j] != LONG_MAX) ? to_string(distance_matrix[i][j]) : "infinity") 
+            << ", path: " << ((distance_matrix[i][j] != LONG_MAX) ? path : "none") << endl;
+        }
+    }
 
     delete_array(distance_matrix, vertex_count);
     delete_array(through_matrix, vertex_count);
